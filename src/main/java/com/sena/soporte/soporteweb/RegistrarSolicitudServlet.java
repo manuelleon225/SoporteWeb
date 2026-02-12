@@ -26,29 +26,37 @@ public class RegistrarSolicitudServlet extends HttpServlet {
             out.println("Nombre: <input type='text' name='nombre'/><br/><br/>");
             out.println("Descripción: <textarea name='descripcion'></textarea><br/><br/>");
             out.println("<input type='submit' value='Enviar Solicitud'/>");
+            String error = (String) request.getAttribute("error");
+if (error != null) {
+    out.println("<p style='color:red;'>" + error + "</p>");
+}
+
             out.println("</form>");
             out.println("</body>");
             out.println("</html>");
         }
     }
-    @Override
+@Override
 protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
 
     String nombre = request.getParameter("nombre");
+    String descripcion = request.getParameter("descripcion");
 
-    response.setContentType("text/html;charset=UTF-8");
+    if (nombre == null || nombre.trim().isEmpty() ||
+        descripcion == null || descripcion.trim().isEmpty()) {
 
-    try (PrintWriter out = response.getWriter()) {
-        out.println("<html>");
-        out.println("<head><title>Solicitud Registrada</title></head>");
-        out.println("<body>");
-        out.println("<h1>Solicitud enviada correctamente</h1>");
-        out.println("<p>Nombre recibido: " + nombre + "</p>");
-        out.println("<a href='RegistrarSolicitudServlet'>Volver</a>");
-        out.println("</body>");
-        out.println("</html>");
+        request.setAttribute("error", "Todos los campos son obligatorios");
+        request.getRequestDispatcher("RegistrarSolicitudServlet")
+               .forward(request, response);
+        return;
     }
+
+    request.setAttribute("nombre", nombre);
+    request.setAttribute("descripcion", descripcion);
+
+    request.getRequestDispatcher("resultado.jsp")
+           .forward(request, response);
 }
 
 }
