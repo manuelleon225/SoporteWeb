@@ -3,32 +3,38 @@
 <html>
 <head>
     <title>Registrar Solicitud</title>
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
 
-<h1>Formulario de Solicitud de Soporte</h1>
+<div class="container">
 
-<form action="RegistrarSolicitudServlet" method="post">
+    <h1>Registrar Solicitud</h1>
 
-    Nombre: <input type="text" name="nombreSolicitante" required><br><br>
+    <form action="RegistrarSolicitudServlet" method="post">
 
-    Correo: <input type="email" name="correo" required><br><br>
+        <label>Nombre</label>
+        <input type="text" name="nombreSolicitante" placeholder="Ingrese su nombre" required>
 
-    Tipo de Solicitud:
-    <select name="tipoSolicitud">
-        <option value="Soporte Técnico">Soporte Técnico</option>
-        <option value="Error del Sistema">Error del Sistema</option>
-        <option value="Consulta">Consulta</option>
-    </select>
-    <br><br>
+        <label>Correo</label>
+        <input type="email" name="correo" placeholder="correo@ejemplo.com" required>
 
-    Descripción:<br>
-    <textarea name="descripcion" rows="4" cols="40" required></textarea>
-    <br><br>
+        <label>Tipo de Solicitud</label>
+        <select name="tipoSolicitud">
+            <option>Soporte Técnico</option>
+            <option>Error del Sistema</option>
+            <option>Consulta</option>
+        </select>
 
-    <input type="submit" value="Enviar Solicitud">
+        <label>Descripción</label>
+        <textarea name="descripcion" rows="4" placeholder="Describe el problema..." required></textarea>
 
-</form>
+        <input type="submit" value="Enviar Solicitud">
+
+    </form>
+
+</div>
+
 
 </body>
 </html>
